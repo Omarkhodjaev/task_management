@@ -26,11 +26,7 @@ export class CompanyController {
 
       const foundCompany = await this.#repository.findByName(dto.name);
 
-      
-      console.log(1);
-
       if (foundCompany) {
-        console.log(foundCompany);
         throw new CompanyAlreadyExist();
       }
 
@@ -67,6 +63,30 @@ export class CompanyController {
       const companyId = req.params.id;
       const resData = await this.#companyService.getById(companyId);
 
+      res.status(resData.statusCode).json(resData);
+    } catch (error) {
+      const resData = new ResData(
+        error.message,
+        error.statusCode || 500,
+        null,
+        error
+      );
+
+      res.status(resData.statusCode).json(resData);
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const companyId = req.params.id;
+
+      const foundCompany = await this.#repository.findOneById(companyId);
+
+      if (!foundCompany) {
+        throw new CompanyNotFound();
+      }
+
+      const resData = await this.#companyService.delete(companyId);
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(
