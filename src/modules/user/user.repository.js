@@ -24,7 +24,7 @@ export class UserRepository extends Postgres {
     return await this.fetch("SELECT * from users where login = $1", userlogin);
   }
 
-  async update(userEntity,userId) {
+  async update(userEntity, userId) {
     return await this.fetch(
       "UPDATE users SET login = $1, password = $2, full_name = $3, company_id = $4, role = $5 where id = $6 returning *",
       userEntity.login,
@@ -38,7 +38,7 @@ export class UserRepository extends Postgres {
 
   async delete(userId) {
     return await this.fetch(
-      "DELETE FROM users WHERE login = $1 returning *",
+      "DELETE FROM users WHERE id = $1 returning *",
       userId
     );
   }

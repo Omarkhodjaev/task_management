@@ -44,8 +44,8 @@ export class UserService {
     return resData;
   }
 
-  async getByLogin(login) {
-    const foundUser = await this.#repository.findByLogin(login);
+  async getById(userId) {
+    const foundUser = await this.#repository.findOneById(userId);
 
     if (!foundUser) {
       throw new UserNotFound();
@@ -59,7 +59,7 @@ export class UserService {
   async delete(login) {
     const deletedUser = await this.#repository.delete(login);
 
-    const resData = new ResData("Deleted user by login", 200, deletedUser);
+    const resData = new ResData("Deleted user by id", 200, deletedUser);
 
     return resData;
   }

@@ -12,7 +12,6 @@ export class AuthorizationMiddleware {
   async checkToken(req, res, next) {
     try {
       const token = req.headers.token;
-
       if (!token) {
         throw new AuthorizationTokenRequiredException();
       }
@@ -43,7 +42,7 @@ export class AuthorizationMiddleware {
 
       const userService = new UserService();
 
-      const { data: currentUser } = await userService.findById(userId);
+      const { data: currentUser } = await userService.getById(userId);
 
       req.currentUser = currentUser;
 
@@ -59,7 +58,31 @@ export class AuthorizationMiddleware {
     try {
       const currentUser = req.currentUser;
 
-      if (currentUser.role !== roles.ADMIN) {
+      if (
+        currentUser.role !== roles.ADMIN &&
+        currentUser.role !== roles.SUPER_ADMIN
+      ) {
+        throw new ForbidenAdminRoleException();
+      }
+
+      return next();
+    } catch (error) {
+      const resData = new ResData(
+        error.message,
+        error.statusCode || 500,
+        null,
+        error
+      );
+
+      res.status(resData.statusCode).json(resData);
+    }
+  }
+
+  async checkSuperAdminRole(req, res, next) {
+    try {
+      const currentUser = req.currentUser;
+
+      if (currentUser.role !== roles.SUPER_ADMIN) {
         throw new ForbidenAdminRoleException();
       }
 

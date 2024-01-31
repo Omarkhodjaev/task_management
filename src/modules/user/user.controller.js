@@ -54,10 +54,10 @@ export class UserController {
     }
   }
 
-  async getByLogin(req, res) {
+  async getById(req, res) {
     try {
-      const login = req.body.login;
-      const resData = await this.#userService.getByLogin(login);
+      const userId = req.params.id;
+      const resData = await this.#userService.getById(userId);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
@@ -75,7 +75,7 @@ export class UserController {
   async update(req, res) {
     try {
       const dto = req.body;
-      const userId = req.query.id;
+      const userId = req.params.id;
       const foundUser = await this.#repository.findOneById(userId);
 
       if (!foundUser) {
@@ -106,7 +106,6 @@ export class UserController {
   async delete(req, res) {
     try {
       const userId = req.params.id;
-
       const foundUser = await this.#repository.findOneById(userId);
 
       if (!foundUser) {
