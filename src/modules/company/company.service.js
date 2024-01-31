@@ -25,15 +25,10 @@ export class CompanyService {
     return resData;
   }
 
-  async getById(companyId) {
+  async getMyCompany(companyId) {
     const foundCompany = await this.#repository.findOneById(companyId);
 
-    if (!foundCompany) {
-      throw new CompanyNotFoundById();
-    }
-
-    const resData = new ResData("Found a company", 200, foundCompany);
-
+    const resData = new ResData("Found my company", 200, foundCompany);
     return resData;
   }
 

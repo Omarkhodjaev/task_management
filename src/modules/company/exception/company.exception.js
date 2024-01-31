@@ -18,3 +18,11 @@ export class CompanyNotFound extends Error {
     this.statusCode = 404;
   }
 }
+
+export class CompanyIdMustBeRequired extends Error {
+  constructor() {
+    super("Company id must be required");
+
+    this.statusCode = 400;
+  }
+}

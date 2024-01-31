@@ -2,6 +2,7 @@ import { BadRequestException } from "../../common/exception/exception.js";
 import { ResData } from "../../common/resData.js";
 import {
   CompanyAlreadyExist,
+  CompanyIdMustBeRequired,
   CompanyNotFound,
 } from "./exception/company.exception.js";
 import { CompanySchema } from "./validation/company.validation.js";
@@ -44,6 +45,13 @@ export class CompanyController {
   async getAll(req, res) {
     try {
       const resData = await this.#companyService.getAll();
+console.log(req.currentUser);
+      if (
+        !req.currentUser.role === "superAdmin" &&
+        req.params.id === undefined
+      ) {
+        throw new CompanyIdMustBeRequired();
+      }
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
@@ -58,10 +66,14 @@ export class CompanyController {
     }
   }
 
-  async getById(req, res) {
+  async getMyCompanybyId(req, res) {
     try {
-      const companyId = req.params.id;
-      const resData = await this.#companyService.getById(companyId);
+      const companyId =
+        req.currentUser.role === "superAdmin"
+          ? req.params.id
+          : req.currentUser.company_id;
+
+      const resData = await this.#companyService.getMyCompany(companyId);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {

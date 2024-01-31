@@ -22,15 +22,16 @@ export class UserService {
       user,
       token,
     });
+
     return resData;
   }
 
-  async update(dto,userId) {
+  async update(dto, userId) {
     const hashedPassword = await hashed(dto.password);
 
     const userEntity = new UserEntity(dto, hashedPassword);
 
-    const user = await this.#repository.update(userEntity,userId);
+    const user = await this.#repository.update(userEntity, userId);
 
     const resData = new ResData("User is updated", 200, user);
     return resData;
