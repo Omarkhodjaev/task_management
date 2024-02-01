@@ -2,6 +2,7 @@ import { ResData } from "../../common/resData.js";
 import { validationSchema } from "../../lib/validationSchema.js";
 import {
   UserAlreadyExist,
+  UserCompanyIdNotFound,
   UserLoginAlreadyExist,
   UserNotFound,
   UserNotFoundById,
@@ -39,7 +40,31 @@ export class UserController {
 
   async getAll(req, res) {
     try {
-      const resData = await this.#userService.getAll();
+      let resData;
+      console.log(req.currentUser);
+      console.log(req.query);
+
+      if (req.currentUser.role === "superAdmin") {
+        if (req.query.companyId) {
+          console.log(1);
+          resData = await this.#userService.getAllByCompanyId(
+            req.query.companyId
+          );
+        } else {
+          console.log(2);
+          resData = await this.#userService.getAll();
+        }
+      } else {
+        console.log(3);
+
+        if (req.currentUser.company_id) {
+          resData = await this.#userService.getAllByCompanyId(
+            req.currentUser.company_id
+          );
+        } else {
+          throw new UserCompanyIdNotFound();
+        }
+      }
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {

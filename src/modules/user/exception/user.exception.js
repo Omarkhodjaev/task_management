@@ -25,3 +25,10 @@ export class UserNotFound extends Error {
     this.statusCode = 404;
   }
 }
+
+export class UserCompanyIdNotFound extends Error {
+  constructor() {
+    super("User has not company");
+    this.statusCode = 404;
+  }
+}

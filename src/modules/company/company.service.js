@@ -25,6 +25,15 @@ export class CompanyService {
     return resData;
   }
 
+  async update(dto, companyId) {
+    const companyEntity = new CompanyEntity(dto);
+
+    const company = await this.#repository.update(companyEntity, companyId);
+
+    const resData = new ResData("Company is updated", 200, company);
+    return resData;
+  }
+
   async getMyCompany(companyId) {
     const foundCompany = await this.#repository.findOneById(companyId);
 

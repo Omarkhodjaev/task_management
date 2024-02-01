@@ -1,5 +1,6 @@
 import { BadRequestException } from "../../common/exception/exception.js";
 import { ResData } from "../../common/resData.js";
+import { validationSchema } from "../../lib/validationSchema.js";
 import {
   CompanyAlreadyExist,
   CompanyIdMustBeRequired,
@@ -45,7 +46,7 @@ export class CompanyController {
   async getAll(req, res) {
     try {
       const resData = await this.#companyService.getAll();
-console.log(req.currentUser);
+
       if (
         !req.currentUser.role === "superAdmin" &&
         req.params.id === undefined
@@ -91,14 +92,17 @@ console.log(req.currentUser);
   async update(req, res) {
     try {
       const companyId = req.params.id;
-
+      const dto = req.body;
       const foundCompany = await this.#repository.findOneById(companyId);
-
+      
       if (!foundCompany) {
         throw new CompanyNotFound();
       }
-
-      const resData = await this.#companyService.delete(companyId);
+      
+      validationSchema(CompanySchema, dto);
+      
+      const resData = await this.#companyService.update(dto, companyId);
+  
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(

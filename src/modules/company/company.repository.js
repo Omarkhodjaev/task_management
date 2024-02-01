@@ -23,10 +23,11 @@ export class CompanyRepository extends Postgres {
     );
   }
 
-  async update(companyEntity) {
+  async update(companyEntity, companyId) {
     return await this.fetch(
-      "UPDATE companies SET name = $1 returning *",
-      companyEntity.name
+      "UPDATE companies SET name = $1 where id = $2 returning *",
+      companyEntity.name,
+      companyId
     );
   }
 

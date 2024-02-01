@@ -22,9 +22,14 @@ router.post(
   }
 );
 
-router.get("/", (req, res) => {
-  userController.getAll(req, res);
-});
+router.get(
+  "/",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  (req, res) => {
+    userController.getAll(req, res);
+  }
+);
 
 router.put("/:id", (req, res) => {
   userController.update(req, res);

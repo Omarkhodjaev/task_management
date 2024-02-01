@@ -40,6 +40,14 @@ export class UserService {
   async getAll() {
     const foundAll = await this.#repository.findAll();
 
+    const resData = new ResData("All company's users is gotten", 200, foundAll);
+
+    return resData;
+  }
+
+  async getAllByCompanyId(companId) {
+    const foundAll = await this.#repository.findAllCompanyById(companId);
+
     const resData = new ResData("All users is gotten", 200, foundAll);
 
     return resData;

@@ -16,21 +16,47 @@ const companyController = new CompanyController(
   companyRepository
 );
 
-router.post("/create", (req, res) => {
-  companyController.create(req, res);
+router.post(
+  "/create",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkSuperAdminRole,
+  (req, res) => {
+    companyController.create(req, res);
+  }
+);
+
+router.get(
+  "/",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkSuperAdminRole,
+  (req, res) => {
+    companyController.getAll(req, res);
+  }
+);
+
+router.put("/:id", (req, res) => {
+  companyController.update(req, res);
 });
 
-router.get("/", authorizationMiddleware.checkToken,authorizationMiddleware.checkUser, authorizationMiddleware.checkSuperAdminRole, (req, res) => {
-  companyController.getAll(req, res);
-});
+router.get(
+  "/:id",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  (req, res) => {
+    companyController.getMyCompanybyId(req, res);
+  }
+);
 
-router.get("/:id", authorizationMiddleware.checkToken, authorizationMiddleware.checkUser, (req, res) => {
-  companyController.getMyCompanybyId(req, res);
-});
-
-
-router.delete("/:id", (req, res) => {
-  companyController.delete(req, res);
-});
+router.delete(
+  "/:id",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkSuperAdminRole,
+  (req, res) => {
+    companyController.delete(req, res);
+  }
+);
 
 export default { router };
