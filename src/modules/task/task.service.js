@@ -1,6 +1,6 @@
 import { ResData } from "../../common/resData.js";
 import { TaskEntity } from "./entity/task.entity.js";
-import { TaskNotFoundById } from "./exception/user.exception.js";
+import { TaskNotFound, TaskNotFoundById } from "./exception/task.exception.js";
 import { TaskRepository } from "./task.repository.js";
 
 export class TaskService {

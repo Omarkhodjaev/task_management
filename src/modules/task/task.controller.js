@@ -1,8 +1,8 @@
 import { ResData } from "../../common/resData.js";
 import { validationSchema } from "../../lib/validationSchema.js";
 import { UserCompanyIdNotFound } from "../user/exception/user.exception.js";
-import {} from "./exception/user.exception.js";
-import { TaskSchema, TaskUpdateSchema } from "./validation/user.validation.js";
+import {} from "./exception/task.exception.js";
+import { TaskSchema, TaskUpdateSchema } from "./validation/task.validation.js";
 
 export class TaskController {
   #taskService;
