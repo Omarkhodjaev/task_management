@@ -2,7 +2,10 @@ import { ResData } from "../../common/resData.js";
 import { hashed } from "../../lib/bcript.js";
 import { generateToken } from "../../lib/jwt.js";
 import { UserEntity } from "./entity/user.entity.js";
-import { UserNotFound } from "./exception/user.exception.js";
+import {
+  UserCompanyIdNotFound,
+  UserNotFound,
+} from "./exception/user.exception.js";
 import { UserRepository } from "./user.repository.js";
 
 export class UserService {
@@ -48,6 +51,10 @@ export class UserService {
   async getAllByCompanyId(companId) {
     const foundAll = await this.#repository.findAllCompanyById(companId);
 
+    if (!foundAll.length) {
+      throw new UserCompanyIdNotFound();
+    }
+
     const resData = new ResData("All users is gotten", 200, foundAll);
 
     return resData;
@@ -65,8 +72,8 @@ export class UserService {
     return resData;
   }
 
-  async delete(login) {
-    const deletedUser = await this.#repository.delete(login);
+  async delete(userId) {
+    const deletedUser = await this.#repository.delete(userId);
 
     const resData = new ResData("Deleted user by id", 200, deletedUser);
 

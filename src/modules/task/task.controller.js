@@ -1,33 +1,24 @@
 import { ResData } from "../../common/resData.js";
 import { validationSchema } from "../../lib/validationSchema.js";
-import {
-  UserAlreadyExist,
-  UserCompanyIdNotFound,
-  UserLoginAlreadyExist,
-  UserNotFound,
-  UserNotFoundById,
-} from "./exception/user.exception.js";
-import { UserSchema, UserUpdateSchema } from "./validation/user.validation.js";
+import { UserCompanyIdNotFound } from "../user/exception/user.exception.js";
+import {} from "./exception/user.exception.js";
+import { TaskSchema, TaskUpdateSchema } from "./validation/user.validation.js";
 
-export class UserController {
-  #userService;
+export class TaskController {
+  #taskService;
   #repository;
-  constructor(UserService, UserRepository) {
-    this.#repository = UserRepository;
-    this.#userService = UserService;
+  constructor(TaskService, TaskRepository) {
+    this.#repository = TaskRepository;
+    this.#taskService = TaskService;
   }
 
   async create(req, res) {
     try {
       const dto = req.body;
-      validationSchema(UserSchema, dto);
 
-      const foundUser = await this.#repository.findByLogin(dto.login);
+      validationSchema(TaskSchema, dto);
 
-      if (foundUser) {
-        throw new UserAlreadyExist();
-      }
-      const resData = await this.#userService.create(dto);
+      const resData = await this.#taskService.create(dto);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
@@ -41,18 +32,17 @@ export class UserController {
   async getAll(req, res) {
     try {
       let resData;
-
       if (req.currentUser.role === "superAdmin") {
         if (req.query.companyId) {
-          resData = await this.#userService.getAllByCompanyId(
+          resData = await this.#taskService.getAllByCompanyId(
             req.query.companyId
           );
         } else {
-          resData = await this.#userService.getAll();
+          resData = await this.#taskService.getAll();
         }
       } else {
         if (req.currentUser.company_id) {
-          resData = await this.#userService.getAllByCompanyId(
+          resData = await this.#taskService.getAllByCompanyId(
             req.currentUser.company_id
           );
         } else {
@@ -76,7 +66,7 @@ export class UserController {
   async getById(req, res) {
     try {
       const userId = req.params.id;
-      const resData = await this.#userService.getById(userId);
+      const resData = await this.#taskService.getById(userId);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
@@ -111,7 +101,7 @@ export class UserController {
 
       const checkedDto = Object.assign(foundUser, dto);
 
-      const resData = await this.#userService.update(checkedDto, userId);
+      const resData = await this.#taskService.update(checkedDto, userId);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
@@ -131,7 +121,7 @@ export class UserController {
         throw new UserNotFound();
       }
 
-      const resData = await this.#userService.delete(userId);
+      const resData = await this.#taskService.delete(userId);
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(
