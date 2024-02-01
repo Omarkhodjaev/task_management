@@ -1,7 +1,10 @@
 import { ResData } from "../../common/resData.js";
 import { validationSchema } from "../../lib/validationSchema.js";
-import { UserCompanyIdNotFound } from "../user/exception/user.exception.js";
-import {} from "./exception/task.exception.js";
+import {
+  UserCompanyIdNotFound,
+  UserNotFound,
+} from "../user/exception/user.exception.js";
+import { TaskNotFound } from "./exception/task.exception.js";
 import { TaskSchema, TaskUpdateSchema } from "./validation/task.validation.js";
 
 export class TaskController {
@@ -84,24 +87,18 @@ export class TaskController {
   async update(req, res) {
     try {
       const dto = req.body;
-      const userId = req.params.id;
-      const foundUser = await this.#repository.findOneById(userId);
+      const taskId = req.params.id;
 
-      if (!foundUser) {
-        throw new UserNotFound();
+      const foundTask = await this.#repository.findOneById(taskId);
+
+      if (!foundTask) {
+        throw new TaskNotFound();
       }
 
-      const isEmptyLogin = await this.#repository.findByLogin(dto.login);
-
-      if (isEmptyLogin) {
-        throw new UserLoginAlreadyExist();
-      }
-
-      validationSchema(UserUpdateSchema, dto);
-
-      const checkedDto = Object.assign(foundUser, dto);
-
-      const resData = await this.#taskService.update(checkedDto, userId);
+      validationSchema(TaskUpdateSchema, dto);
+      const checkedDto = Object.assign(foundTask, dto);
+      
+      const resData = await this.#taskService.update(checkedDto, taskId);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {
@@ -114,14 +111,14 @@ export class TaskController {
 
   async delete(req, res) {
     try {
-      const userId = req.params.id;
-      const foundUser = await this.#repository.findOneById(userId);
+      const taskId = req.params.id;
+      const foundTask = await this.#repository.findOneById(taskId);
 
-      if (!foundUser) {
+      if (!foundTask) {
         throw new UserNotFound();
       }
 
-      const resData = await this.#taskService.delete(userId);
+      const resData = await this.#taskService.delete(taskId);
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(

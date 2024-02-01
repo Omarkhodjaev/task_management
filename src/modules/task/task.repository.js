@@ -26,19 +26,15 @@ export class TaskRepository extends Postgres {
     return await this.fetch("SELECT * from tasks where id = $1", taskId);
   }
 
-  async findByLogin(userlogin) {
-    return await this.fetch("SELECT * from tasks where login = $1", userlogin);
-  }
-
-  async update(userEntity, userId) {
+  async update(taskEntity, taskId) {
     return await this.fetch(
-      "UPDATE tasks SET login = $1, password = $2, full_name = $3, company_id = $4, role = $5 where id = $6 returning *",
-      userEntity.login,
-      userEntity.password,
-      userEntity.full_name,
-      userEntity.company_id,
-      userEntity.role,
-      userId
+      "UPDATE tasks SET title = $1, description = $2, company_id = $3, parent_id = $4, day = $5 where id = $6 returning *",
+      taskEntity.title,
+      taskEntity.description,
+      taskEntity.company_id,
+      taskEntity.parent_id,
+      taskEntity.day,
+      taskId
     );
   }
 
