@@ -1,5 +1,10 @@
 import { ResData } from "../../common/resData.js";
 import { UserTaskEntity } from "./entity/user_task.entity.js";
+import {
+  UserNotFoundByTaskId,
+  UserNotFoundByUserId,
+  UserTaskNotFoundById,
+} from "./exception/user_task.exception.js";
 import { UserTaskRepository } from "./user_task.repository.js";
 
 export class UserTaskService {
@@ -10,9 +15,8 @@ export class UserTaskService {
 
   async create(dto) {
     const userTaskEntity = new UserTaskEntity(dto);
-    
+
     const userTask = await this.#repository.insert(userTaskEntity);
-   
 
     const resData = new ResData("A new UserTask is created", 200, userTask);
 
@@ -34,11 +38,11 @@ export class UserTaskService {
     const foundUserTask = await this.#repository.findOneById(userTaskId);
 
     if (!foundUserTask) {
-      throw new UserTaskNotFound();
+      throw new UserTaskNotFoundById();
     }
 
     const resData = new ResData(
-      "Found a user_task by taskid",
+      "Found a user_task by taskId",
       200,
       foundUserTask
     );
@@ -50,7 +54,7 @@ export class UserTaskService {
     const foundUserTask = await this.#repository.findOneByUserId(userId);
 
     if (!foundUserTask) {
-      throw new UserNotFound();
+      throw new UserNotFoundByUserId();
     }
 
     const resData = new ResData(
@@ -65,12 +69,12 @@ export class UserTaskService {
   async getByTaskId(TaskId) {
     const foundUserTask = await this.#repository.findOneByTaskId(TaskId);
 
-    if (!foundUser) {
-      throw new UserNotFound();
+    if (!foundUserTask) {
+      throw new UserNotFoundByTaskId();
     }
 
     const resData = new ResData(
-      "Found a usertask by taskid",
+      "Found a user_task by taskId",
       200,
       foundUserTask
     );

@@ -28,20 +28,20 @@ router.get("/", (req, res) => {
   userTaskController.getAll(req, res);
 });
 
+router.get("/by-task/:id", (req, res) => {
+    userTaskController.getByTaskId(req, res);
+});
+
+router.get("/by-user/:id", (req, res) => {
+    userTaskController.getByUserId(req, res);
+});
+
 router.put("/:id", (req, res) => {
   userTaskController.update(req, res);
 });
 
 router.get("/:id", (req, res) => {
   userTaskController.getById(req, res);
-});
-
-router.get("/:id", (req, res) => {
-  userTaskController.getByTaskId(req, res);
-});
-
-router.get("/:id", (req, res) => {
-  userTaskController.getByUserId(req, res);
 });
 
 router.delete("/:id", (req, res) => {

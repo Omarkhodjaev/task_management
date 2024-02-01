@@ -75,7 +75,6 @@ export class UserTaskController {
     try {
       const userTaskId = req.params.id;
       const resData = await this.#userTaskService.getByTaskId(userTaskId);
-
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(
