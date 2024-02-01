@@ -97,7 +97,6 @@ export class TaskController {
 
       validationSchema(TaskUpdateSchema, dto);
       const checkedDto = Object.assign(foundTask, dto);
-      
       const resData = await this.#taskService.update(checkedDto, taskId);
 
       res.status(resData.statusCode).json(resData);

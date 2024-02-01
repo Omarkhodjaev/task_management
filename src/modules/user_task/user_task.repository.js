@@ -47,17 +47,21 @@ export class UserTaskRepository extends Postgres {
     );
   }
 
-  async update(UserTaskEntity, taskId) {
+  async update(UserTaskEntity, userTaskId) {
     return await this.fetch(
-      "UPDATE user_tasks SET login = $1, password = $2, full_name = $3, company_id = $4, role = $5 where id = $6 returning *",
-      UserTaskEntity.login,
-      UserTaskEntity.password,
-      UserTaskEntity.full_name,
-      UserTaskEntity.company_id,
-      UserTaskEntity.role,
-      taskId
+      "UPDATE user_tasks SET user_id = $1, task_id = $2, start_at = $3, end_at = $4, started_date = $5, ended_date = $6, status = $7 where id = $8 returning *",
+      UserTaskEntity.user_id,
+      UserTaskEntity.task_id,
+      UserTaskEntity.start_at,
+      UserTaskEntity.end_at,
+      UserTaskEntity.started_date,
+      UserTaskEntity.ended_date,
+      UserTaskEntity.status,
+      userTaskId
     );
   }
+
+
 
   async delete(taskId) {
     return await this.fetch(

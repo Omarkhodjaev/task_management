@@ -24,9 +24,7 @@ export class UserTaskService {
   }
 
   async update(dto, userTaskId) {
-    const hashedPassword = await hashed(dto.password);
-
-    const userTaskEntity = new UserTaskEntity(dto, hashedPassword);
+    const userTaskEntity = new UserTaskEntity(dto);
 
     const userTask = await this.#repository.update(userTaskEntity, userTaskId);
 

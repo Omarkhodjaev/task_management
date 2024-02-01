@@ -5,6 +5,13 @@ export class UserTaskNotFoundById extends Error {
   }
 }
 
+export class UserTaskNotFound extends Error {
+    constructor() {
+      super("User_Task not found");
+      this.statusCode = 404;
+    }
+  }
+
 export class UserNotFoundByUserId extends Error {
   constructor() {
     super("User_Task not found by userId");

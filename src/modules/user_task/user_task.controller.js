@@ -1,5 +1,7 @@
 import { ResData } from "../../common/resData.js";
 import { validationSchema } from "../../lib/validationSchema.js";
+import { UserTaskEntity } from "./entity/user_task.entity.js";
+import { UserTaskNotFound } from "./exception/user_task.exception.js";
 import {
   UserTaskSchema,
   UserTaskUpdateSchema,
@@ -93,14 +95,14 @@ export class UserTaskController {
       const dto = req.body;
       const userTaskId = req.params.id;
       const foundUserTask = await this.#repository.findOneById(userTaskId);
-
       if (!foundUserTask) {
         throw new UserTaskNotFound();
       }
 
       validationSchema(UserTaskUpdateSchema, dto);
 
-      const checkedDto = Object.assign(foundUserTask, dto);
+      const newUpdate = new UserTaskEntity(dto);
+      const checkedDto = Object.assign(foundUserTask, newUpdate);
 
       const resData = await this.#userTaskService.update(
         checkedDto,
