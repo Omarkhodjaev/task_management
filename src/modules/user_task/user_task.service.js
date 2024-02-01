@@ -1,0 +1,88 @@
+import { ResData } from "../../common/resData.js";
+import { UserTaskEntity } from "./entity/user_task.entity.js";
+import { UserTaskRepository } from "./user_task.repository.js";
+
+export class UserTaskService {
+  #repository;
+  constructor() {
+    this.#repository = new UserTaskRepository();
+  }
+
+  async create(dto) {
+    const userTaskEntity = new UserTaskEntity(dto);
+    
+    const userTask = await this.#repository.insert(userTaskEntity);
+   
+
+    const resData = new ResData("A new UserTask is created", 200, userTask);
+
+    return resData;
+  }
+
+  async update(dto, userTaskId) {
+    const hashedPassword = await hashed(dto.password);
+
+    const userTaskEntity = new UserTaskEntity(dto, hashedPassword);
+
+    const userTask = await this.#repository.update(userTaskEntity, userTaskId);
+
+    const resData = new ResData("UserTask is updated", 200, userTask);
+    return resData;
+  }
+
+  async getById(userTaskId) {
+    const foundUserTask = await this.#repository.findOneById(userTaskId);
+
+    if (!foundUserTask) {
+      throw new UserTaskNotFound();
+    }
+
+    const resData = new ResData(
+      "Found a user_task by taskid",
+      200,
+      foundUserTask
+    );
+
+    return resData;
+  }
+
+  async getByUserId(userId) {
+    const foundUserTask = await this.#repository.findOneByUserId(userId);
+
+    if (!foundUserTask) {
+      throw new UserNotFound();
+    }
+
+    const resData = new ResData(
+      "Found a user_task by userid",
+      200,
+      foundUserTask
+    );
+
+    return resData;
+  }
+
+  async getByTaskId(TaskId) {
+    const foundUserTask = await this.#repository.findOneByTaskId(TaskId);
+
+    if (!foundUser) {
+      throw new UserNotFound();
+    }
+
+    const resData = new ResData(
+      "Found a usertask by taskid",
+      200,
+      foundUserTask
+    );
+
+    return resData;
+  }
+
+  async delete(userTaskid) {
+    const deletedUser = await this.#repository.delete(userTaskid);
+
+    const resData = new ResData("Deleted user_task by id", 200, deletedUser);
+
+    return resData;
+  }
+}

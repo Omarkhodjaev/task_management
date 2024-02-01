@@ -5,9 +5,4 @@ export const roles = {
   WORKER: "worker",
 };
 
-export const status = {
-  PROCCESS: "proccess",
-  DONE: "done",
-  TOOK: "took"
-};
 
