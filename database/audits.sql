@@ -4,7 +4,6 @@ CREATE TABLE audit_companies (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(20) NOT NULL
 );
-
 CREATE TABLE audit_users (
     id SERIAL PRIMARY KEY,
     login VARCHAR(50) NOT NULL,
@@ -15,15 +14,12 @@ CREATE TABLE audit_users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(20) NOT NULL
 );
-
 CREATE OR REPLACE FUNCTION audit_companies_insert_trigger() RETURNS TRIGGER AS $$ BEGIN
 INSERT INTO audit_companies (name, created_at, status)
 VALUES (NEW.name, current_timestamp, 'active');
 RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
-
 CREATE TRIGGER after_insert_audit_companies
 AFTER
 INSERT ON companies FOR EACH ROW EXECUTE FUNCTION audit_companies_insert_trigger();
@@ -36,8 +32,6 @@ WHERE id = NEW.id;
 RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
-
 CREATE TRIGGER after_update_audit_companies
 AFTER
 UPDATE ON companies FOR EACH ROW
@@ -51,6 +45,29 @@ WHERE id = OLD.id;
 RETURN OLD;
 END;
 $$ LANGUAGE plpgsql;
-
 CREATE TRIGGER after_delete_audit_companies
 AFTER DELETE ON companies FOR EACH ROW EXECUTE FUNCTION audit_companies_delete_trigger();
+CREATE OR REPLACE FUNCTION audit_users_delete_trigger() RETURNS TRIGGER AS $$ BEGIN
+INSERT INTO audit_users (
+        login,
+        password,
+        role,
+        full_name,
+        company_id,
+        created_at,
+        status
+    )
+VALUES (
+        OLD.login,
+        OLD.password,
+        OLD.role,
+        OLD.full_name,
+        OLD.company_id,
+        current_timestamp,
+        'deleted'
+    );
+RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER after_delete_audit_users
+AFTER DELETE ON users FOR EACH ROW EXECUTE FUNCTION audit_users_delete_trigger();
