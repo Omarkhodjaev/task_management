@@ -9,7 +9,7 @@ import {
   UserNotFound,
   UserNotFoundById,
 } from "./exception/user.exception.js";
-import { UserSchema, UserUpdateSchema } from "./validation/user.validation.js";
+import { UserSchema, UserUpdateSchema, userLoginSchema } from "./validation/user.validation.js";
 
 export class UserController {
   #userService;
@@ -54,6 +54,26 @@ export class UserController {
         const resData = new ResData(error.message, error.statusCode);
         res.status(resData.statusCode).json(resData);
       }
+    }
+  }
+
+  async login(req, res) {
+    try {
+      const dto = req.body;
+
+      validationSchema(userLoginSchema, dto);
+
+      const resData = await this.#userService.login(dto);
+
+      res.status(resData.statusCode).json(resData);
+    } catch (error) {
+      const resData = new ResData(
+        error.message,
+        error.statusCode || 500,
+        null,
+        error
+      );
+      res.status(resData.statusCode).json(resData);
     }
   }
 

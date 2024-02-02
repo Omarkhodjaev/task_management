@@ -12,6 +12,10 @@ export class UserRepository extends Postgres {
     );
   }
 
+  async findOneByLogin(login) {
+    return await this.fetch("select * from users where login = $1", login);
+  }
+
   async findAll() {
     return await this.fetchAll("SELECT * from users");
   }

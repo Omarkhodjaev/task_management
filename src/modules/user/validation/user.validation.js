@@ -13,6 +13,11 @@ export const UserSchema = Joi.object({
     .required(),
 });
 
+export const userLoginSchema = Joi.object({
+  login: Joi.string().max(32).min(4).required(),
+  password: Joi.string().max(32).min(4).required(),
+});
+
 export const UserUpdateSchema = Joi.object({
   login: Joi.string().min(1).max(50),
   password: Joi.string().min(1).max(100),

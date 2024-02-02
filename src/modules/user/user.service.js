@@ -1,8 +1,9 @@
 import { ResData } from "../../common/resData.js";
-import { hashed } from "../../lib/bcript.js";
+import { compare, hashed } from "../../lib/bcript.js";
 import { generateToken } from "../../lib/jwt.js";
 import { UserEntity } from "./entity/user.entity.js";
 import {
+  LoginOrPassWrongException,
   UserCompanyIdNotFound,
   UserNotFound,
 } from "./exception/user.exception.js";
@@ -79,4 +80,44 @@ export class UserService {
 
     return resData;
   }
+
+
+  async login(dto) {
+    const { data: foundUser } = await this.findByLogin(dto.login);
+
+    if (!foundUser) {
+      throw new UserNotFound();
+    }
+
+    const isValidPassword = await compare(dto.password, foundUser.password);
+
+    if (!isValidPassword) {
+      throw new LoginOrPassWrongException();
+    }
+
+    const newToken = generateToken(foundUser.id);
+
+    const resData = new ResData("success login", 200, {
+      user: foundUser,
+      token: newToken,
+    });
+
+    return resData;
+  }
+
+  async findByLogin(login) {
+    const foundByLogin = await this.#repository.findOneByLogin(login);
+
+    let resData;
+
+    if (foundByLogin) {
+      resData = new ResData("success login", 200, foundByLogin);
+    } else {
+      resData = new ResData("user not found", 404, foundByLogin);
+    }
+
+    return resData;
+  }
+
+
 }

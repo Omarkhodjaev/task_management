@@ -12,6 +12,8 @@ export class UserLoginAlreadyExist extends Error {
   }
 }
 
+
+
 export class UserNotFoundById extends Error {
   constructor() {
     super("User not found by id");
@@ -46,5 +48,13 @@ export class UserCompanyNotFound extends Error {
     super("User's company not found");
 
     this.statusCode = 404;
+  }
+}
+
+export class LoginOrPassWrongException extends Error {
+  constructor() {
+    super("Login or password wrong please try again!");
+
+    this.statusCode = 500;
   }
 }
