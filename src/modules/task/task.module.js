@@ -12,29 +12,47 @@ const taskController = new TaskController(taskService, taskRepository);
 
 const authorizationMiddleware = new AuthorizationMiddleware();
 
-router.post("/create", (req, res) => {
-  taskController.create(req, res);
-});
+router.post(
+  "/create",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkAdminManagerRole,
+  (req, res) => {
+    taskController.create(req, res);
+  }
+);
 
 router.get(
   "/",
   authorizationMiddleware.checkToken,
   authorizationMiddleware.checkUser,
   (req, res) => {
-    taskController.getAll(req, res);
+    taskController.getByCompanyId(req, res);
   }
 );
 
-router.put("/:id", (req, res) => {
-  taskController.update(req, res);
-});
+router.put(
+  "/:id",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkAdminManagerRole,
+  (req, res) => {
+    taskController.update(req, res);
+  }
+);
 
 router.get("/:id", (req, res) => {
   taskController.getById(req, res);
 });
 
-router.delete("/:id", (req, res) => {
-  taskController.delete(req, res);
-});
+router.delete(
+  "/:id",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkAdminManagerRole,
+  (req, res) => {
+    taskController.delete(req, res);
+  }
+);
 
 export default { router };

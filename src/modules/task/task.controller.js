@@ -32,7 +32,7 @@ export class TaskController {
     }
   }
 
-  async getAll(req, res) {
+  async getByCompanyId(req, res) {
     try {
       let resData;
       if (req.currentUser.role === "superAdmin") {
