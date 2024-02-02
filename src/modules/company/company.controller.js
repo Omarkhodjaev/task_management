@@ -94,15 +94,15 @@ export class CompanyController {
       const companyId = req.params.id;
       const dto = req.body;
       const foundCompany = await this.#repository.findOneById(companyId);
-      
+
       if (!foundCompany) {
         throw new CompanyNotFound();
       }
-      
+
       validationSchema(CompanySchema, dto);
-      
+
       const resData = await this.#companyService.update(dto, companyId);
-  
+
       res.status(resData.statusCode).json(resData);
     } catch (error) {
       const resData = new ResData(

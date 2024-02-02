@@ -31,16 +31,28 @@ router.get(
   }
 );
 
-router.put("/:id", (req, res) => {
-  userController.update(req, res);
-});
+router.put(
+  "/:id",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkAdminRole,
+  (req, res) => {
+    userController.update(req, res);
+  }
+);
 
 router.get("/:id", (req, res) => {
   userController.getById(req, res);
 });
 
-router.delete("/:id", (req, res) => {
-  userController.delete(req, res);
-});
+router.delete(
+  "/:id",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkAdminRole,
+  (req, res) => {
+    userController.delete(req, res);
+  }
+);
 
 export default { router };

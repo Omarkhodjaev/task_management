@@ -32,3 +32,11 @@ export class UserCompanyIdNotFound extends Error {
     this.statusCode = 404;
   }
 }
+
+export class AdminCannotAssignSuperAdmin extends Error {
+  constructor() {
+    super("Admin cannot assign super admin");
+
+    this.statusCode = 400;
+  }
+}

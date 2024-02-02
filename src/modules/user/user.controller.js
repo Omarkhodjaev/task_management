@@ -1,6 +1,7 @@
 import { ResData } from "../../common/resData.js";
 import { validationSchema } from "../../lib/validationSchema.js";
 import {
+  AdminCannotAssignSuperAdmin,
   UserAlreadyExist,
   UserCompanyIdNotFound,
   UserLoginAlreadyExist,
@@ -21,6 +22,10 @@ export class UserController {
     try {
       const dto = req.body;
       validationSchema(UserSchema, dto);
+
+      if (req.currentUser.role === "admin" && dto.role === "superAdmin") {
+        throw new AdminCannotAssignSuperAdmin();
+      }
 
       const foundUser = await this.#repository.findByLogin(dto.login);
 
@@ -95,6 +100,11 @@ export class UserController {
     try {
       const dto = req.body;
       const userId = req.params.id;
+
+      if (req.currentUser.role === "admin" && dto.role === "superAdmin") {
+        throw new AdminCannotAssignSuperAdmin();
+      }
+
       const foundUser = await this.#repository.findOneById(userId);
 
       if (!foundUser) {

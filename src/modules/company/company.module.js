@@ -36,9 +36,15 @@ router.get(
   }
 );
 
-router.put("/:id", (req, res) => {
-  companyController.update(req, res);
-});
+router.put(
+  "/:id",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkSuperAdminRole,
+  (req, res) => {
+    companyController.update(req, res);
+  }
+);
 
 router.get(
   "/:id",
