@@ -61,6 +61,7 @@ export class UserService {
   }
 
   async getById(userId) {
+    // console.log(userId);
     const foundUser = await this.#repository.findOneById(userId);
     if (!foundUser) {
       throw new UserNotFound();

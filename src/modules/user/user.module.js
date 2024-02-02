@@ -14,9 +14,9 @@ const authorizationMiddleware = new AuthorizationMiddleware();
 
 router.post(
   "/create",
-  authorizationMiddleware.checkToken,
-  authorizationMiddleware.checkUser,
-  authorizationMiddleware.checkAdminRole,
+  // authorizationMiddleware.checkToken,
+  // authorizationMiddleware.checkUser,
+  // authorizationMiddleware.checkAdminRole,
   (req, res) => {
     userController.create(req, res);
   }
@@ -37,6 +37,7 @@ router.put(
   authorizationMiddleware.checkUser,
   authorizationMiddleware.checkAdminRole,
   (req, res) => {
+  
     userController.update(req, res);
   }
 );

@@ -24,9 +24,9 @@ export class UserController {
       const dto = req.body;
       validationSchema(UserSchema, dto);
 
-      if (req.currentUser.role === "admin" && dto.role === "superAdmin") {
-        throw new AdminCannotAssignSuperAdmin();
-      }
+      // if (req.currentUser.role === "admin" && dto.role === "superAdmin") {
+      //   throw new AdminCannotAssignSuperAdmin();
+      // }
 
       const foundUser = await this.#repository.findByLogin(dto.login);
 
@@ -37,7 +37,7 @@ export class UserController {
         const foundCompany = await this.#repository.findCompanyById(
           dto.companyId
         );
-        
+
         if (!foundCompany) {
           throw new UserCompanyNotFound();
         }
