@@ -188,7 +188,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"test1 2man2212\",\r\n    \"password\": \"test$test\",\r\n    \"fullName\": \"test test\",\r\n    \"companyId\": 1,\r\n    \"role\": \"worker\"\r\n}",
+							"raw": "{\r\n    \"login\": \"test\",\r\n    \"password\": \"test$test\",\r\n    \"fullName\": \"test test\",\r\n    // \"companyId\": 1,\r\n    \"role\": \"superAdmin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -350,6 +350,36 @@
 									"value": "1",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"test\",\r\n    \"password\": \"test$test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"login"
 							]
 						}
 					},
