@@ -19,12 +19,6 @@ export class UserTaskRepository extends Postgres {
     return await this.fetchAll("SELECT * from user_tasks");
   }
 
-  async findAllCompanyById(companyId) {
-    return await this.fetchAll(
-      "SELECT * from user_tasks where company_id = $1",
-      companyId
-    );
-  }
 
   async findOneById(UserTaskId) {
     return await this.fetch(
@@ -34,14 +28,14 @@ export class UserTaskRepository extends Postgres {
   }
 
   async findOneByUserId(UserId) {
-    return await this.fetch(
+    return await this.fetchAll(
       "SELECT * from user_tasks where user_id = $1",
       UserId
     );
   }
 
   async findOneByTaskId(TaskId) {
-    return await this.fetch(
+    return await this.fetchAll(
       "SELECT * from user_tasks where task_id = $1",
       TaskId
     );
