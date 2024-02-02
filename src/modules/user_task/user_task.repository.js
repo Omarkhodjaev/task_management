@@ -19,17 +19,97 @@ export class UserTaskRepository extends Postgres {
     return await this.fetchAll("SELECT * from user_tasks");
   }
 
+  // async findOneById(UserTaskId) {
+  //   return await this.fetch(
+  //     "SELECT * from user_tasks where id = $1",
+  //     UserTaskId
+  //   );
+  // }
 
   async findOneById(UserTaskId) {
     return await this.fetch(
-      "SELECT * from user_tasks where id = $1",
+      `
+        SELECT
+          ut.id,
+          ut.start_at,
+          ut.end_at,
+          ut.started_date,
+          ut.ended_date,
+          ut.status,
+          (
+            SELECT jsonb_build_object(
+              'id', u.id,
+              'role', u.role,
+              'login', u.login,
+              'full_name', u.full_name,
+              'role', u.role,
+              'company', json_build_object('id', COALESCE(c.id, NULL), 'name', COALESCE(c.name, NULL))
+            )
+            FROM public.users u
+            LEFT JOIN public.companies c ON u.company_id = c.id
+            WHERE u.id = ut.user_id
+          ) AS "User",
+          (
+            SELECT jsonb_build_object(
+              'id', t.id,
+              'title', t.title,
+              'description', t.description,
+              'day', t.day,
+              'company', json_build_object('id', COALESCE(c.id, NULL), 'name', COALESCE(c.name, NULL))
+            )
+            FROM public.tasks t
+            LEFT JOIN public.companies c ON t.company_id = c.id
+            WHERE t.id = ut.task_id
+          ) AS "Task"
+        FROM
+          public.user_tasks ut
+        WHERE
+          ut.id = $1;
+        `,
       UserTaskId
     );
   }
 
   async findOneByUserId(UserId) {
     return await this.fetchAll(
-      "SELECT * from user_tasks where user_id = $1",
+      `
+      SELECT
+        ut.id,
+        ut.start_at,
+        ut.end_at,
+        ut.started_date,
+        ut.ended_date,
+        ut.status,
+        (
+          SELECT jsonb_build_object(
+            'id', u.id,
+            'role', u.role,
+            'login', u.login,
+            'full_name', u.full_name,
+            'role', u.role,
+            'company', json_build_object('id', COALESCE(c.id, NULL), 'name', COALESCE(c.name, NULL))
+          )
+          FROM public.users u
+          LEFT JOIN public.companies c ON u.company_id = c.id
+          WHERE u.id = ut.user_id
+        ) AS "User",
+        (
+          SELECT jsonb_build_object(
+            'id', t.id,
+            'title', t.title,
+            'description', t.description,
+            'day', t.day,
+            'company', json_build_object('id', COALESCE(c.id, NULL), 'name', COALESCE(c.name, NULL))
+          )
+          FROM public.tasks t
+          LEFT JOIN public.companies c ON t.company_id = c.id
+          WHERE t.id = ut.task_id
+        ) AS "Task"
+      FROM
+        public.user_tasks ut
+      WHERE
+        ut.user_id = $1;
+      `,
       UserId
     );
   }
@@ -54,8 +134,6 @@ export class UserTaskRepository extends Postgres {
       userTaskId
     );
   }
-
-
 
   async delete(taskId) {
     return await this.fetch(

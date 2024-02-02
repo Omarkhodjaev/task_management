@@ -94,10 +94,14 @@ export class UserTaskController {
     try {
       const dto = req.body;
       const userTaskId = req.params.id;
+
       const foundUserTask = await this.#repository.findOneById(userTaskId);
       if (!foundUserTask) {
         throw new UserTaskNotFound();
       }
+
+      await this.#userService.getById(dto.userId);
+      await this.#taskService.getById(dto.taskId);
 
       validationSchema(UserTaskUpdateSchema, dto);
 
