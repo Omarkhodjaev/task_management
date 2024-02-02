@@ -1,0 +1,683 @@
+{
+	"info": {
+		"_postman_id": "67e1df53-73a1-4ba6-97e4-40b22191130c",
+		"name": "task_management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31656713",
+		"_collection_link": "https://www.postman.com/omarkhodjaev/workspace/exam-n5/collection/31656713-67e1df53-73a1-4ba6-97e4-40b22191130c?action=share&source=collection_link&creator=31656713"
+	},
+	"item": [
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxLCJleHAiOjE3MDcwNjczOTAsImlhdCI6MTcwNjg2NzM5MH0.KV-GR05V2Jh__QjpN7Ddz26wfk74FCjmVBsfdI7Hz2w",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"G-G\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/company/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"company",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxLCJleHAiOjE3MDcwNjczOTAsImlhdCI6MTcwNjg2NzM5MH0.KV-GR05V2Jh__QjpN7Ddz26wfk74FCjmVBsfdI7Hz2w",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2400/api/company/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"company",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxLCJleHAiOjE3MDcwNjczOTAsImlhdCI6MTcwNjg2NzM5MH0.KV-GR05V2Jh__QjpN7Ddz26wfk74FCjmVBsfdI7Hz2w",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2400/api/company/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"company",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-my-company",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjozLCJleHAiOjE3MDcwNjg4MjIsImlhdCI6MTcwNjg2ODgyMn0.2ghyS1cumTjoSx3dHbsPNsqQv2yAS4-PimADeyZN4h4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2400/api/company/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"company",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxLCJleHAiOjE3MDcwNjczOTAsImlhdCI6MTcwNjg2NzM5MH0.KV-GR05V2Jh__QjpN7Ddz26wfk74FCjmVBsfdI7Hz2w",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"G-K\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/company/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"company",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjozLCJleHAiOjE3MDcwNjg4MjIsImlhdCI6MTcwNjg2ODgyMn0.2ghyS1cumTjoSx3dHbsPNsqQv2yAS4-PimADeyZN4h4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"test1 2man2212\",\r\n    \"password\": \"test$test\",\r\n    \"fullName\": \"test test\",\r\n    \"companyId\": 1,\r\n    \"role\": \"worker\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxLCJleHAiOjE3MDcwNjczOTAsImlhdCI6MTcwNjg2NzM5MH0.KV-GR05V2Jh__QjpN7Ddz26wfk74FCjmVBsfdI7Hz2w",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2400/api/user/?companyId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"1"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-by-id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxLCJleHAiOjE3MDcwNjczOTAsImlhdCI6MTcwNjg2NzM5MH0.KV-GR05V2Jh__QjpN7Ddz26wfk74FCjmVBsfdI7Hz2w",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2400/api/user/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"4"
+							]
+						},
+						"description": "This API endpoint sends an HTTP DELETE request to [http://localhost:2400/api/user/4](http://localhost:2400/api/user/4) to delete a user with the ID 4. Upon successful execution, the server returns a 200 status code along with a JSON response containing a message, status code, and data related to the deleted user.\n\nThe response will have the following structure:\n\n- message: A message related to the deletion process\n- statusCode: The status code of the operation\n- data: An object containing the details of the deleted user, including ID, login, password, full name, company ID, and role\n- error: Any error information if applicable\n    \n\nPlease note that the actual values of the user data will be masked for privacy and security reasons."
+					},
+					"response": []
+				},
+				{
+					"name": "update-by-id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxMCwiZXhwIjoxNzA3MDcwMjYwLCJpYXQiOjE3MDY4NzAyNjB9.1R_bOg05gUTb2oMClhJvKd6mQft8cNQTGeBOTLc7HE0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"test\", \r\n    \"password\": \"22222222\",\r\n    \"fullName\": \"Salom33\",\r\n    \"companyId\": 2,\r\n    \"role\": \"superAdmin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user",
+								"5"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "task",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"To do\",\r\n    \"description\": \"dsjfldsfjas;dkfljs;adlfkas\",\r\n    \"companyId\": 2,\r\n    \"parentId\": 1,\r\n    \"day\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/task/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"task",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByCompanyId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjo2LCJleHAiOjE3MDcwNjk1MTcsImlhdCI6MTcwNjg2OTUxN30.JY81AuMf4KdGDcbpABmRRORQyh6hS1KMGWrEbbblTgo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2400/api/task/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"task",
+								"2"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2400/api/task/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"task",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjo2LCJleHAiOjE3MDcwNjk1MTcsImlhdCI6MTcwNjg2OTUxN30.JY81AuMf4KdGDcbpABmRRORQyh6hS1KMGWrEbbblTgo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"To do\",\r\n    \"description\": \"dsjfldsfjas;dkfljs;adlfkas\",\r\n    \"companyId\": 2,\r\n    \"parentId\": 1,\r\n    \"day\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/task/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"task",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjo2LCJleHAiOjE3MDcwNjk1MTcsImlhdCI6MTcwNjg2OTUxN30.JY81AuMf4KdGDcbpABmRRORQyh6hS1KMGWrEbbblTgo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2400/api/task/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"task",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user_task",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjo2LCJleHAiOjE3MDcwNjk1MTcsImlhdCI6MTcwNjg2OTUxN30.JY81AuMf4KdGDcbpABmRRORQyh6hS1KMGWrEbbblTgo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"taskId\": 4,\r\n    \"startAt\": \"2004\",\r\n    \"endAt\": \"2005\",\r\n    \"startedDate\": \"2005\",\r\n    \"endedDate\": \"2006\",\r\n    \"status\": \"proccess\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user-task/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user-task",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2400/api/user-task/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user-task",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getbyTaskId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2400/api/user-task/by-task/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user-task",
+								"by-task",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2400/api/user-task/by-user/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user-task",
+								"by-user",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxMCwiZXhwIjoxNzA3MDcwMjYwLCJpYXQiOjE3MDY4NzAyNjB9.1R_bOg05gUTb2oMClhJvKd6mQft8cNQTGeBOTLc7HE0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:2400/api/user-task/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user-task",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxMCwiZXhwIjoxNzA3MDcwMjYwLCJpYXQiOjE3MDY4NzAyNjB9.1R_bOg05gUTb2oMClhJvKd6mQft8cNQTGeBOTLc7HE0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"taskId\": 1,\r\n    \"startAt\": \"2004\",\r\n    \"endAt\": \"2005\",\r\n    \"startedDate\": \"2005\",\r\n    \"endedDate\": \"2006\",\r\n    \"status\": \"proccess\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2400/api/user-task/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2400",
+							"path": [
+								"api",
+								"user-task",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
