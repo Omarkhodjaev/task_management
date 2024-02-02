@@ -1,7 +1,7 @@
 import { ResData } from "../../common/resData.js";
 import { CompanyEntity } from "./entity/brand.entity.js";
-import { CompanyNotFoundById } from "./exception/company.exception.js";
 import { CompanyRepository } from "./company.repository.js";
+import { CompanyNotFound } from "./exception/company.exception.js";
 
 export class CompanyService {
   #repository;
@@ -9,9 +9,9 @@ export class CompanyService {
     this.#repository = new CompanyRepository();
   }
   async create(dto) {
-    const companyEntity = new CompanyEntity(dto);
+    const companyEnt = new CompanyEntity(dto);
 
-    const company = await this.#repository.insert(companyEntity);
+    const company = await this.#repository.insert(companyEnt);
 
     const resData = new ResData("A new company is created", 200, company);
     return resData;
@@ -36,6 +36,10 @@ export class CompanyService {
 
   async getMyCompany(companyId) {
     const foundCompany = await this.#repository.findOneById(companyId);
+
+    if (!foundCompany) {
+      throw new CompanyNotFound();
+    }
 
     const resData = new ResData("Found my company", 200, foundCompany);
     return resData;

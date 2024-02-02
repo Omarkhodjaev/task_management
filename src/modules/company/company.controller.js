@@ -20,11 +20,7 @@ export class CompanyController {
     try {
       const dto = req.body;
 
-      const { value, error } = CompanySchema.validate(dto);
-
-      if (error) {
-        throw new BadRequestException(error.message);
-      }
+      validationSchema(CompanySchema, dto);
 
       const foundCompany = await this.#repository.findByName(dto.name);
 
@@ -32,7 +28,7 @@ export class CompanyController {
         throw new CompanyAlreadyExist();
       }
 
-      const resData = await this.#companyService.create(value);
+      const resData = await this.#companyService.create(dto);
 
       res.status(resData.statusCode).json(resData);
     } catch (error) {

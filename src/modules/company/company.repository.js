@@ -1,4 +1,5 @@
 import { Postgres } from "../../lib/pg.js";
+import { CompanyEntity } from "./entity/brand.entity.js";
 
 export class CompanyRepository extends Postgres {
   async insert(companyEntity) {

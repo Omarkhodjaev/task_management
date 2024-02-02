@@ -4,6 +4,7 @@ import {
   AdminCannotAssignSuperAdmin,
   UserAlreadyExist,
   UserCompanyIdNotFound,
+  UserCompanyNotFound,
   UserLoginAlreadyExist,
   UserNotFound,
   UserNotFoundById,
@@ -32,6 +33,19 @@ export class UserController {
       if (foundUser) {
         throw new UserAlreadyExist();
       }
+      if (dto.companyId) {
+        const foundCompany = await this.#repository.findCompanyById(
+          dto.companyId
+        );
+        
+        if (!foundCompany) {
+          throw new UserCompanyNotFound();
+        }
+      }
+    
+
+    
+
       const resData = await this.#userService.create(dto);
 
       res.status(resData.statusCode).json(resData);
