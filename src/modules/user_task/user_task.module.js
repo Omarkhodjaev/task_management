@@ -20,32 +20,50 @@ const userTaskController = new UserTaskController(
 
 const authorizationMiddleware = new AuthorizationMiddleware();
 
-router.post("/create", (req, res) => {
-  userTaskController.create(req, res);
-});
+router.post(
+  "/create",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkAdminManagerRole,
+  (req, res) => {
+    userTaskController.create(req, res);
+  }
+);
 
 router.get("/", (req, res) => {
   userTaskController.getAll(req, res);
 });
 
 router.get("/by-task/:id", (req, res) => {
-    userTaskController.getByTaskId(req, res);
+  userTaskController.getByTaskId(req, res);
 });
 
 router.get("/by-user/:id", (req, res) => {
-    userTaskController.getByUserId(req, res);
+  userTaskController.getByUserId(req, res);
 });
 
-router.put("/:id", (req, res) => {
-  userTaskController.update(req, res);
-});
+router.put(
+  "/:id",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkAdminManagerRole,
+  (req, res) => {
+    userTaskController.update(req, res);
+  }
+);
 
 router.get("/:id", (req, res) => {
   userTaskController.getById(req, res);
 });
 
-router.delete("/:id", (req, res) => {
-  userTaskController.delete(req, res);
-});
+router.delete(
+  "/:id",
+  authorizationMiddleware.checkToken,
+  authorizationMiddleware.checkUser,
+  authorizationMiddleware.checkAdminRole,
+  (req, res) => {
+    userTaskController.delete(req, res);
+  }
+);
 
 export default { router };

@@ -78,6 +78,31 @@ export class AuthorizationMiddleware {
     }
   }
 
+  async checkAdminManagerRole(req, res, next) {
+    try {
+      const currentUser = req.currentUser;
+
+      if (
+        currentUser.role !== roles.ADMIN &&
+        currentUser.role !== roles.SUPER_ADMIN &&
+        currentUser.role !== roles.MANAGER
+      ) {
+        throw new ForbidenAdminRoleException();
+      }
+
+      return next();
+    } catch (error) {
+      const resData = new ResData(
+        error.message,
+        error.statusCode || 500,
+        null,
+        error
+      );
+
+      res.status(resData.statusCode).json(resData);
+    }
+  }
+
   async checkSuperAdminRole(req, res, next) {
     try {
       const currentUser = req.currentUser;

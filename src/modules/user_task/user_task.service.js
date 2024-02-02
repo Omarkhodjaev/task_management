@@ -51,7 +51,7 @@ export class UserTaskService {
   async getByUserId(userId) {
     const foundUserTask = await this.#repository.findOneByUserId(userId);
 
-    if (!foundUserTask) {
+    if (!foundUserTask.length) {
       throw new UserNotFoundByUserId();
     }
 
@@ -67,7 +67,7 @@ export class UserTaskService {
   async getByTaskId(TaskId) {
     const foundUserTask = await this.#repository.findOneByTaskId(TaskId);
 
-    if (!foundUserTask) {
+    if (!foundUserTask.length) {
       throw new UserNotFoundByTaskId();
     }
 
